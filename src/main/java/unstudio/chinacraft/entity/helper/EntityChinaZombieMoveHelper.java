@@ -19,7 +19,6 @@ public class EntityChinaZombieMoveHelper extends EntityMoveHelper {
     private boolean update;
     private int tickSinceUp;
     private boolean prevUp;
-    private static final String __OBFID = "CL_00001573";
 
     public EntityChinaZombieMoveHelper(EntityChinaZombie p_i1614_1_)
     {
@@ -29,7 +28,7 @@ public class EntityChinaZombieMoveHelper extends EntityMoveHelper {
         this.posY = p_i1614_1_.posY;
         this.posZ = p_i1614_1_.posZ;
     }
-    
+
     @Override
     public boolean isUpdating()
     {
@@ -54,7 +53,7 @@ public class EntityChinaZombieMoveHelper extends EntityMoveHelper {
         this.speed = p_75642_7_;
         this.update = true;
     }
-    
+
     @Override
     public void onUpdateMoveHelper()
     {
@@ -68,7 +67,7 @@ public class EntityChinaZombieMoveHelper extends EntityMoveHelper {
             double d2 = this.posY - (double)i;
             double d3 = d0 * d0 + d2 * d2 + d1 * d1;
             if (entityChinaZombie.jumpDelay > 0) {
-                // 这儿放了5 ticks的时间给实体速度,是为了防止实体无法跳上一格高的方块 
+                // 这儿放了5 ticks的时间给实体速度,是为了防止实体无法跳上一格高的方块
                 if (entityChinaZombie.jumpDelay > this.entityChinaZombie.getJumpDelay() - 5)
                     this.entityChinaZombie.setAIMoveSpeed(this.entityChinaZombie.JUMP_SPEED_FACTOR * (float)(this.speed * this.entityChinaZombie.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
             }

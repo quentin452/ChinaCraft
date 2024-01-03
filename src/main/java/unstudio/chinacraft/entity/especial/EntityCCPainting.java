@@ -103,8 +103,6 @@ public class EntityCCPainting extends EntityHanging {
         public final int offsetX;
         public final int offsetY;
 
-        private static final String __OBFID = "CL_00001557";
-
         EnumArt(String p_i1598_3_, int p_i1598_4_, int p_i1598_5_, int p_i1598_6_, int p_i1598_7_) {
             this.title = p_i1598_3_;
             this.sizeX = p_i1598_4_;

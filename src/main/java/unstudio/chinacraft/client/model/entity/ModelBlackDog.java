@@ -11,7 +11,6 @@ import org.lwjgl.opengl.GL11;
 import unstudio.chinacraft.entity.animal.EntityBlackDog;
 
 public class ModelBlackDog extends ModelBase {
-    private static final String __OBFID = "CL_00000868";
     /** main box for the wolf head */
     public ModelRenderer wolfHeadMain;
     /** The wolf's body */
