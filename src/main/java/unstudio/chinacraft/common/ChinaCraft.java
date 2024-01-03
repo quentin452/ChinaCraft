@@ -5,7 +5,9 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
@@ -33,6 +35,7 @@ import unstudio.chinacraft.block.generation.plant.BlockCCCake;
 import unstudio.chinacraft.block.generation.plant.BlockFirebrick;
 import unstudio.chinacraft.block.model.BlockCCLamp;
 import unstudio.chinacraft.client.model.block.ModelLanternScaldfish;
+import unstudio.chinacraft.common.config.ConfigLoader;
 import unstudio.chinacraft.common.network.KeyMessage;
 import unstudio.chinacraft.common.network.KeyMessageHandler;
 import unstudio.chinacraft.common.network.RedPacketMessage;
@@ -43,14 +46,10 @@ import unstudio.chinacraft.item.combat.*;
 import unstudio.chinacraft.item.jade.Jade;
 import unstudio.chinacraft.item.jade.JadePinkSystem;
 import unstudio.chinacraft.util.annotation.register.CorpPlant;
-import unstudio.chinacraft.util.remote.Network;
-import unstudio.chinacraft.util.remote.MinecraftModVersionChecker;
-import unstudio.chinacraft.util.remote.VersionChecker;
+import unstudio.chinacraft.util.annotation.register.ICollection;
 import unstudio.chinacraft.util.annotation.register.Register;
 import unstudio.chinacraft.util.annotation.register.SlabRegister;
-import unstudio.chinacraft.util.annotation.register.ICollection;
-import unstudio.chinacraft.common.config.FeatureConfig;
-import unstudio.chinacraft.common.config.ConfigLoader;
+import unstudio.chinacraft.util.remote.Network;
 import unstudio.chinacraft.world.gen.WorldGenMulberryTree;
 
 import java.util.Random;
@@ -68,18 +67,16 @@ public class ChinaCraft implements ICollection {
     //其他Mod加载情况
     public static boolean NEIIsLoad = false;
     public static boolean WAILAIsLoad = false;
-    public static boolean VersionCheckerIsLoad = false;
     public unstudio.chinacraft.util.remote.Network network = new Network();
 
     @SidedProxy(clientSide = "unstudio.chinacraft.common.ClientProxy", serverSide = "unstudio.chinacraft.common.CommonProxy")
     public static CommonProxy proxy;
-    
+
     @Instance("chinacraft")
     public static ChinaCraft instance;
 
     // 特殊变量
     public static JadePinkSystem jadePinkSystem = new JadePinkSystem();
-    public static VersionChecker versionChecker;
     public static boolean haveWarnedVersionOutOfDate = false;
     public final static Random rand = new Random();
     // Material
@@ -169,7 +166,7 @@ public class ChinaCraft implements ICollection {
 
 //    @Register("TraditionalPainting")
     public static final CCItemPainting traditionalPainting = new CCItemPainting("traditional_painting");
-    
+
     @Register("Bamboo")
     public static final Block bamboo = new BlockBamboo().setBlockTextureName("chinacraft:bamboo"); // 竹子方块
     @Register("BlockBambooShoot")
@@ -527,16 +524,12 @@ public class ChinaCraft implements ICollection {
     public void preInit(FMLPreInitializationEvent event) {
         NEIIsLoad = Loader.isModLoaded("NotEnoughItems");
         WAILAIsLoad = Loader.isModLoaded("Waila");
-        VersionCheckerIsLoad = Loader.isModLoaded("VersionChecker");
-        
+
         proxy.preInit(event);
 
         Network = NetworkRegistry.INSTANCE.newSimpleChannel("ChinaCraftChannel");
         Network.registerMessage(new RedPacketMessageHandler(), RedPacketMessage.class, 0, Side.SERVER);
         Network.registerMessage(new KeyMessageHandler(), KeyMessage.class, 1, Side.SERVER);
-
-        versionChecker = new MinecraftModVersionChecker(ChinaCraft.class,"ChinaCraft 华夏文明",PROJECT_ID,log,FeatureConfig.EnableSanpShot);
-        if (FeatureConfig.EnableUpdate) versionChecker.start();
     }
 
     @EventHandler
