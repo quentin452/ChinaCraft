@@ -9,7 +9,6 @@ import unstudio.chinacraft.common.ChinaCraft;
  */
 public class FeatureConfig {
 
-    public static boolean EnableUpdate;
     public static boolean EnableSanpShot;
     public static boolean ItemBombDestoryBlock;
     public static boolean ItemBombInRedPackerExplosion;
@@ -25,7 +24,6 @@ public class FeatureConfig {
     private Configuration c = ChinaCraft.getMainConfig();
 
     public FeatureConfig() {
-        EnableUpdate = c.getBoolean("EnableUpdate","Common",true,"If Open Auto Version Checker");
         EnableSanpShot = c.getBoolean("EnableSanpShot","Common",true,"If receive SanpShot Version");
         enableShiftShootFirecrackers = c.getBoolean("EnableShiftShootFirecrackers","Common",true,"If Player can shoot all firecrackers by Sneaking");
         ItemBombDestoryBlock = c.getBoolean("ItemBombDestoryBlock","Bomb",true,"Bomb Will Destory Block If True");
